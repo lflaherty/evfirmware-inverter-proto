@@ -18,8 +18,6 @@
 #include "time/externalWatchdog/externalWatchdog.h"
 #include "time/rtc/rtc.h"
 
-#include "device/wheelspeed/wheelspeed.h"
-
 #include "vehicleInterface/deviceMapping/deviceMapping.h"
 #include "vehicleProcesses/example/example.h"
 #include "vehicleProcesses/watchdogTrigger/watchdogTrigger.h"
@@ -171,15 +169,6 @@ static ECU_Init_Status_T ECU_Init_System3(void)
 static ECU_Init_Status_T ECU_Init_App1(void)
 {
   logPrintS(&log, "###### ECU_Init_App1 ######\n", LOGGING_DEFAULT_BUFF_LEN);
-  char logBuffer[LOGGING_DEFAULT_BUFF_LEN];
-
-  // Wheel speed process
-  WheelSpeed_Status_T statusWheelSpeed = WheelSpeed_Init(&log);
-  if (WHEELSPEED_STATUS_OK != statusWheelSpeed) {
-    snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "WheelSpeed process init error %u", statusWheelSpeed);
-    logPrintS(&log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
-    return ECU_INIT_ERROR;
-  }
 
   return ECU_INIT_OK;
 }
