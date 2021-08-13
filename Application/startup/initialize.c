@@ -21,6 +21,7 @@
 #include "vehicleInterface/deviceMapping/deviceMapping.h"
 #include "vehicleProcesses/example/example.h"
 #include "vehicleProcesses/watchdogTrigger/watchdogTrigger.h"
+#include "vehicleProcesses/sigGen/siggen.h"
 
 // ------------------- Private data -------------------
 static Logging_T log;
@@ -205,6 +206,12 @@ static ECU_Init_Status_T ECU_Init_App3(void)
   if (WATCHDOGTRIGGER_STATUS_OK != watchdogTriggerStatus) {
     snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "WatchdogTrigger process init error %u", watchdogTriggerStatus);
     logPrintS(&log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
+    return ECU_INIT_ERROR;
+  }
+
+  SigGen_Status_T siggenStatus = SigGen_Init(&log);
+  if (SIGGEN_STATUS_OK != siggenStatus) {
+    snrpintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "SigGen process init error %u", siggenStatus);
     return ECU_INIT_ERROR;
   }
 
