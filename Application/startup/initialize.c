@@ -211,7 +211,7 @@ static ECU_Init_Status_T ECU_Init_App3(void)
 
   SigGen_Status_T siggenStatus = SigGen_Init(&log);
   if (SIGGEN_STATUS_OK != siggenStatus) {
-    snrpintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "SigGen process init error %u", siggenStatus);
+    snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "SigGen process init error %u", siggenStatus);
     return ECU_INIT_ERROR;
   }
 
