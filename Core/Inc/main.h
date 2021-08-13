@@ -72,6 +72,8 @@ void Error_Handler(void);
 #define WATCHDOG_MR_GPIO_Port GPIOE
 #define LED_STATUS_Pin GPIO_PIN_12
 #define LED_STATUS_GPIO_Port GPIOB
+#define GPIO1_DIR_Pin GPIO_PIN_7
+#define GPIO1_DIR_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
