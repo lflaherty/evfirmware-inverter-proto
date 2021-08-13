@@ -20,7 +20,7 @@
 #include "vehicleInterface/deviceMapping/deviceMapping.h"
 
 // ------------------- Private data -------------------
-static Logging_T* log;
+static Logging_T* logging;
 
 #define SG_STACK_SIZE 2000
 static StaticTask_t taskBuffer;
@@ -32,7 +32,7 @@ static TaskHandle_t taskHandle;
 // ------------------- Private methods -------------------
 static void SigGen_TaskMain(void* pvParameters)
 {
-  logPrintS(log, "SigGen_TaskMain begin\n", LOGGING_DEFAULT_BUFF_LEN);
+  logPrintS(logging, "SigGen_TaskMain begin\n", LOGGING_DEFAULT_BUFF_LEN);
   char logBuffer[LOGGING_DEFAULT_BUFF_LEN];
 
   const TickType_t blockTime = 10 / portTICK_PERIOD_MS; // 10ms
@@ -44,7 +44,7 @@ static void SigGen_TaskMain(void* pvParameters)
     if (notifiedValue > 0) {
       // ready to process
 
-
+      HAL_GPIO_TogglePin(GPIO1_GPIO_Port, GPIO1_Pin);
     }
 
   }
@@ -54,17 +54,15 @@ static void SigGen_TaskMain(void* pvParameters)
 SigGen_Status_T SigGen_Init(
     Logging_T* logger)
 {
-  log = logger;
-  logPrintS(log, "SigGen_Init begin\n", LOGGING_DEFAULT_BUFF_LEN);
+  logging = logger;
+  logPrintS(logging, "SigGen_Init begin\n", LOGGING_DEFAULT_BUFF_LEN);
 
   // Write direction
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); // 0 (RESET) => pull up
-  // ADC2_PUP
-//  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);   // 1 (SET) => pull down
+  HAL_GPIO_WritePin(GPIO1_DIR_GPIO_Port, GPIO1_DIR_Pin, GPIO_PIN_RESET);  // data flows B->A (output from ECU)
 
   // create main task
   taskHandle = xTaskCreateStatic(
-      SigTem_TaskMain,
+      SigGen_TaskMain,
       "SigGenTask",
       SG_STACK_SIZE,   /* Stack size */
       NULL,  /* Parameter passed as pointer */
@@ -79,6 +77,6 @@ SigGen_Status_T SigGen_Init(
     return SIGGEN_STATUS_ERROR;
   }
 
-  logPrintS(log, "SigGen_Init complete\n", LOGGING_DEFAULT_BUFF_LEN);
+  logPrintS(logging, "SigGen_Init complete\n", LOGGING_DEFAULT_BUFF_LEN);
   return SIGGEN_STATUS_OK;
 }
