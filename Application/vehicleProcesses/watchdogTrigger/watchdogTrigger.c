@@ -57,7 +57,7 @@ WatchdogTrigger_Status_T WatchdogTrigger_Init(Logging_T* logger)
       "WatchdogTriggerTask",
       WDG_TRIGGER_STACK_SIZE,   /* Stack size */
       NULL,  /* Parameter passed as pointer */
-      tskIDLE_PRIORITY,
+      WATCHDOGTRIGGER_TASK_PRIORITY,
       taskStack,
       &taskBuffer);
 

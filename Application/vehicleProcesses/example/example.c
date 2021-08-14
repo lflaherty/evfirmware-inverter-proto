@@ -119,6 +119,8 @@ static void Example_TaskMain(void* pvParameters)
       snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "\n");
       logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
       count++;
+
+      // TODO remove the printf statements - these cause timing issues
     }
 
   }
@@ -126,19 +128,19 @@ static void Example_TaskMain(void* pvParameters)
 
 static void Example_canCallback(const CAN_DataFrame_T* data)
 {
-  char logBuffer[LOGGING_DEFAULT_BUFF_LEN];
-  snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "CAN received from %lx: ", data->msgId);
-  logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
-
-  size_t i;
-  for (i = 0; i < data->dlc; ++i)
-  {
-    snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, " %x", data->data[i]);
-    logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
-  }
-
-  snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "\n");
-  logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
+//  char logBuffer[LOGGING_DEFAULT_BUFF_LEN];
+//  snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "CAN received from %lx: ", data->msgId);
+//  logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
+//
+//  size_t i;
+//  for (i = 0; i < data->dlc; ++i)
+//  {
+//    snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, " %x", data->data[i]);
+//    logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
+//  }
+//
+//  snprintf(logBuffer, LOGGING_DEFAULT_BUFF_LEN, "\n");
+//  logPrintS(log, logBuffer, LOGGING_DEFAULT_BUFF_LEN);
 }
 
 static void Example_uartCallback(const USART_Data_T* data)
@@ -190,7 +192,7 @@ Example_Status_T Example_Init(
       "ExampleTask",
       EX_STACK_SIZE,   /* Stack size */
       NULL,  /* Parameter passed as pointer */
-      tskIDLE_PRIORITY,
+      EXAMPLE_TASK_PRIORITY,
       taskStack,
       &taskBuffer);
 

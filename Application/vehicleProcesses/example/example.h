@@ -18,6 +18,8 @@ typedef enum
   EXAMPLE_STATUS_ERROR  = 0x01U
 } Example_Status_T;
 
+#define EXAMPLE_TASK_PRIORITY 1
+
 /**
  * @brief Initialize the process
  * @param logger Pointer to system logger

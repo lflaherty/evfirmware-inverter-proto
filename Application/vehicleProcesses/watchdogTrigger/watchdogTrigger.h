@@ -18,6 +18,8 @@ typedef enum
   WATCHDOGTRIGGER_STATUS_ERROR  = 0x01U
 } WatchdogTrigger_Status_T;
 
+#define WATCHDOGTRIGGER_TASK_PRIORITY 3
+
 /**
  * @brief Initialize the process
  */
