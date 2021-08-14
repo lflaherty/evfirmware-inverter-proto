@@ -197,7 +197,7 @@ Example_Status_T Example_Init(
       &taskBuffer);
 
   // Register the task for timer notifications every 1s
-  uint16_t timerDivider = 1000 * TASKTIMER_BASE_PERIOD_MS;
+  uint32_t timerDivider = 1000 * TASKTIMER_BASE_PERIOD_MS;
   TaskTimer_Status_T statusTimer = TaskTimer_RegisterTask(&exampleTaskHandle, timerDivider);
   if (TASKTIMER_STATUS_OK != statusTimer) {
     return EXAMPLE_STATUS_ERROR;
