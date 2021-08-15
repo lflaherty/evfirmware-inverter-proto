@@ -33,14 +33,10 @@ static TaskHandle_t taskHandle;
 static void SigGen_TaskMain(void* pvParameters)
 {
   logPrintS(logging, "SigGen_TaskMain begin\n", LOGGING_DEFAULT_BUFF_LEN);
-  char logBuffer[LOGGING_DEFAULT_BUFF_LEN];
-
-  const TickType_t blockTime = 10 / portTICK_PERIOD_MS; // 10ms
-  uint32_t notifiedValue;
 
   while (1) {
     // Wait for notification to wake up
-    notifiedValue = ulTaskNotifyTake(pdTRUE, blockTime);
+    uint32_t notifiedValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     if (notifiedValue > 0) {
       // ready to process
 
@@ -66,12 +62,12 @@ SigGen_Status_T SigGen_Init(
       "SigGenTask",
       SG_STACK_SIZE,   /* Stack size */
       NULL,  /* Parameter passed as pointer */
-      tskIDLE_PRIORITY,
+      SIGGEN_RTOS_PRIORITY,
       taskStack,
       &taskBuffer);
 
-  // Register the task for timer notifications every 1ms
-  uint16_t timerDivider = 1 * TASKTIMER_BASE_PERIOD_MS;
+  // Register the task for timer notifications every 100us
+  uint32_t timerDivider = 1 * TASKTIMER_BASE_PERIOD_100US;
   TaskTimer_Status_T statusTimer = TaskTimer_RegisterTask(&taskHandle, timerDivider);
   if (TASKTIMER_STATUS_OK != statusTimer) {
     return SIGGEN_STATUS_ERROR;

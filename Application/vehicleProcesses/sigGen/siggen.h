@@ -12,6 +12,8 @@
 
 #include "lib/logging/logging.h"
 
+#define SIGGEN_RTOS_PRIORITY 7
+
 typedef enum
 {
   SIGGEN_STATUS_OK     = 0x00U,
