@@ -29,6 +29,12 @@
 #define MAPPING_ADC1_CHANNEL4     ((ADC_Channel_T) 4U)
 
 /*
+ * PWM channels for inverter
+ */
+#define MAPPING_TIM_PHA               TIM8
+#define MAPPING_TIM_CHANNEL_PHA_HIGH  TIM_CHANNEL_3
+
+/*
  * Getters for device handles
  */
 
@@ -37,5 +43,6 @@ ADC_HandleTypeDef* Mapping_GetADC(void);
 CAN_HandleTypeDef* Mapping_GetCAN1(void);
 UART_HandleTypeDef* Mapping_GetUART1(void);
 RTC_HandleTypeDef* Mapping_GetRTC(void);
+TIM_HandleTypeDef* Mapping_GetTimerPhA(void);
 
 #endif /* VEHICLEINTERFACE_DEVICEMAPPING_DEVICEMAPPING_H_ */

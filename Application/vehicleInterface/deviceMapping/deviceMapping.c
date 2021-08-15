@@ -18,6 +18,8 @@ extern CAN_HandleTypeDef hcan1;
 
 extern RTC_HandleTypeDef hrtc;
 
+extern TIM_HandleTypeDef htim8;
+
 extern UART_HandleTypeDef huart1;
 
 TIM_HandleTypeDef* Mapping_GetTaskTimer(void)
@@ -46,5 +48,10 @@ UART_HandleTypeDef* Mapping_GetUART1(void)
 RTC_HandleTypeDef* Mapping_GetRTC(void)
 {
   return &hrtc;
+}
+
+TIM_HandleTypeDef* Mapping_GetTimerPhA(void)
+{
+  return &htim8;
 }
 

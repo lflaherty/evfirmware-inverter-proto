@@ -50,6 +50,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -64,8 +66,8 @@ void Error_Handler(void);
 #define ADC1_PUP_GPIO_Port GPIOA
 #define ADC2_PUP_Pin GPIO_PIN_6
 #define ADC2_PUP_GPIO_Port GPIOA
-#define SPEED_TEST_GPO_Pin GPIO_PIN_7
-#define SPEED_TEST_GPO_GPIO_Port GPIOA
+#define DEBUG_OUT_Pin GPIO_PIN_2
+#define DEBUG_OUT_GPIO_Port GPIOB
 #define WATCHDOG_ASSERT_Pin GPIO_PIN_10
 #define WATCHDOG_ASSERT_GPIO_Port GPIOE
 #define WATCHDOG_MR_Pin GPIO_PIN_11
@@ -74,8 +76,6 @@ void Error_Handler(void);
 #define LED_STATUS_GPIO_Port GPIOB
 #define GPIO1_DIR_Pin GPIO_PIN_7
 #define GPIO1_DIR_GPIO_Port GPIOC
-#define GPIO1_Pin GPIO_PIN_8
-#define GPIO1_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
